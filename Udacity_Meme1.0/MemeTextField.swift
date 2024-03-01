@@ -21,9 +21,10 @@ struct MemeTextField: View {
         .font(.custom(fontName ?? "Arial", size: 20))
         .multilineTextAlignment(.center)
         .padding(5)
-        .background(Color.yellow)
         .cornerRadius(8)
-        .padding(30)
+        .background(Color.gray.opacity(0.2))
+        .padding(20)
+        .foregroundColor(.white)
     }
 }
 
@@ -32,4 +33,6 @@ struct MemeTextField: View {
         MemeTextField(text: .constant("This is top"), placeHolder: "Top", fontName: "Bodoni 72 Oldstyle")
         MemeTextField(text: .constant("This is bottom"), placeHolder: "Bottom", fontName: "Arial Rounded MT Bold")
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(Color.black)
 }
