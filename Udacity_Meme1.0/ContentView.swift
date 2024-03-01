@@ -18,6 +18,26 @@ struct ContentView: View {
     @State private var isOpenAlbum = false
     
     var body: some View {
+        editImageView
+            .ignoresSafeArea(edges: .bottom)
+            .onChange(of: pickerItem) {
+                Task {
+                    if let data = try? await pickerItem?.loadTransferable(type: Data.self) {
+                        if let image = UIImage(data: data) {
+                            selectedImage = Image(uiImage: image)
+                        }
+                    }
+                }
+            }
+            .onChange(of: selectedFontName) {
+                isOpenAlbum.toggle()
+            }
+            .sheet(isPresented: $isOpenAlbum) {
+                ListFontView(selectedFontName: $selectedFontName)
+            }
+    }
+    
+    private var editImageView: some View {
         VStack {
             centerView
                 .background(Color.green)
@@ -37,22 +57,6 @@ struct ContentView: View {
                 }
         }
         .background(Color.black)
-        .ignoresSafeArea(edges: .bottom)
-        .onChange(of: pickerItem) {
-            Task {
-                if let data = try? await pickerItem?.loadTransferable(type: Data.self) {
-                    if let image = UIImage(data: data) {
-                        selectedImage = Image(uiImage: image)
-                    }
-                }
-            }
-        }
-        .onChange(of: selectedFontName) {
-            isOpenAlbum.toggle()
-        }
-        .sheet(isPresented: $isOpenAlbum) {
-            ListFontView(selectedFontName: $selectedFontName)
-        }
     }
     
     private var centerView: some View {
@@ -74,6 +78,7 @@ struct ContentView: View {
     private var bottomView: some View {
         HStack {
             if let selectedImage = selectedImage {
+                let editImageView = editImageView.snapshot()
                 ShareLink(
                     item: selectedImage,
                     preview: SharePreview("Beautiful Image", image: selectedImage)) {
@@ -97,4 +102,21 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+extension View {
+    func snapshot() -> UIImage {
+        let controller = UIHostingController(rootView: self)
+        let view = controller.view
+ 
+        let targetSize = controller.view.intrinsicContentSize
+        view?.bounds = CGRect(origin: .zero, size: targetSize)
+        view?.backgroundColor = .clear
+ 
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+ 
+        return renderer.image { _ in
+            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+        }
+    }
 }
