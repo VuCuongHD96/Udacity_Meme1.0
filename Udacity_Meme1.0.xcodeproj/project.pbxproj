@@ -12,6 +12,7 @@
 		96C558872B918167008D14DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96C558862B918167008D14DF /* Assets.xcassets */; };
 		96C5588A2B918167008D14DF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96C558892B918167008D14DF /* Preview Assets.xcassets */; };
 		96C558912B91AE1A008D14DF /* MemeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C558902B91AE1A008D14DF /* MemeTextField.swift */; };
+		96C558932B91B70F008D14DF /* ListFontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C558922B91B70F008D14DF /* ListFontView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		96C558862B918167008D14DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96C558892B918167008D14DF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		96C558902B91AE1A008D14DF /* MemeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeTextField.swift; sourceTree = "<group>"; };
+		96C558922B91B70F008D14DF /* ListFontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFontView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 				96C558822B918165008D14DF /* Udacity_Meme1_0App.swift */,
 				96C558842B918165008D14DF /* ContentView.swift */,
 				96C558902B91AE1A008D14DF /* MemeTextField.swift */,
+				96C558922B91B70F008D14DF /* ListFontView.swift */,
 				96C558862B918167008D14DF /* Assets.xcassets */,
 				96C558882B918167008D14DF /* Preview Content */,
 			);
@@ -143,6 +146,7 @@
 				96C558852B918165008D14DF /* ContentView.swift in Sources */,
 				96C558832B918165008D14DF /* Udacity_Meme1_0App.swift in Sources */,
 				96C558912B91AE1A008D14DF /* MemeTextField.swift in Sources */,
+				96C558932B91B70F008D14DF /* ListFontView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +205,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -258,7 +262,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -284,6 +288,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -313,6 +318,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

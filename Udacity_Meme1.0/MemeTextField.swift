@@ -11,13 +11,14 @@ struct MemeTextField: View {
     
     @Binding var text: String
     var placeHolder: String
+    var fontName: String?
     
     var body: some View {
         TextField(text: $text) {
             Text(placeHolder)
-                .font(.title)
                 .foregroundColor(.white)
         }
+        .font(.custom(fontName ?? "Arial", size: 20))
         .multilineTextAlignment(.center)
         .padding(5)
         .background(Color.yellow)
@@ -28,7 +29,7 @@ struct MemeTextField: View {
 
 #Preview {
     VStack {
-        MemeTextField(text: .constant("This is top"), placeHolder: "Top")
-        MemeTextField(text: .constant("This is bottom"), placeHolder: "Bottom")
+        MemeTextField(text: .constant("This is top"), placeHolder: "Top", fontName: "Bodoni 72 Oldstyle")
+        MemeTextField(text: .constant("This is bottom"), placeHolder: "Bottom", fontName: "Arial Rounded MT Bold")
     }
 }
