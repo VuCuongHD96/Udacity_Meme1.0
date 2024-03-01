@@ -14,13 +14,16 @@ struct ContentView: View {
     @State private var selectedImage: Image?
     @State private var topText = ""
     @State private var bottomText = ""
+    @State private var selectedFontName: String?
+    @State private var isOpenAlbum = false
     
     var body: some View {
         VStack {
-            MemeTextField(text: $topText, placeHolder: "Top")
+            MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
             centerView
                 .frame(maxHeight: .infinity)
-            MemeTextField(text: $bottomText, placeHolder: "Bottom")
+                .background(Color.green)
+            MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
             bottomView
                 .frame(maxWidth: .infinity, maxHeight: 60)
                 .background {
@@ -29,7 +32,6 @@ struct ContentView: View {
                 }
         }
         .ignoresSafeArea(edges: .bottom)
-        .background(Color.green)
         .onChange(of: pickerItem) {
             Task {
                 if let data = try? await pickerItem?.loadTransferable(type: Data.self) {
@@ -38,6 +40,12 @@ struct ContentView: View {
                     }
                 }
             }
+        }
+        .onChange(of: selectedFontName) {
+            isOpenAlbum.toggle()
+        }
+        .sheet(isPresented: $isOpenAlbum) {
+            ListFontView(selectedFontName: $selectedFontName)
         }
     }
     
@@ -65,6 +73,9 @@ struct ContentView: View {
             }
             Spacer()
             Image("edit")
+                .onTapGesture {
+                    isOpenAlbum.toggle()
+                }
             Spacer()
         }
     }
