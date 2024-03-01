@@ -19,11 +19,16 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
             centerView
-                .frame(maxHeight: .infinity)
                 .background(Color.green)
-            MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
+                .frame(maxHeight: .infinity)
+                .overlay {
+                    VStack {
+                        MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
+                        Spacer()
+                        MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
+                    }
+                }
             bottomView
                 .frame(maxWidth: .infinity, maxHeight: 60)
                 .background {
@@ -31,6 +36,7 @@ struct ContentView: View {
                         .fill(Color.gray)
                 }
         }
+        .background(Color.black)
         .ignoresSafeArea(edges: .bottom)
         .onChange(of: pickerItem) {
             Task {
@@ -67,17 +73,25 @@ struct ContentView: View {
     
     private var bottomView: some View {
         HStack {
-            Spacer()
+            if let selectedImage = selectedImage {
+                ShareLink(
+                    item: selectedImage,
+                    preview: SharePreview("Beautiful Image", image: selectedImage)) {
+                        Image("share")
+                    }
+                    .frame(maxWidth: .infinity)
+            }
             PhotosPicker(selection: $pickerItem, matching: .images) {
                 Image("album")
             }
-            Spacer()
+            .frame(maxWidth: .infinity)
             Image("edit")
                 .onTapGesture {
                     isOpenAlbum.toggle()
                 }
-            Spacer()
+                .frame(maxWidth: .infinity)
         }
+        .animation(.default, value: selectedImage)
     }
 }
 
