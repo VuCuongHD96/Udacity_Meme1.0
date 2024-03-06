@@ -20,15 +20,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             centerView
-                .background(Color.green)
-                .frame(maxHeight: .infinity)
-                .overlay {
-                    VStack {
-                        MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
-                        Spacer()
-                        MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
-                    }
-                }
+              
             bottomView
                 .frame(maxWidth: .infinity, maxHeight: 60)
                 .background {
@@ -57,26 +49,43 @@ struct ContentView: View {
     
     private var centerView: some View {
         if let image = selectedImage {
-            return AnyView(
-                image
-                    .resizable()
-                    .scaledToFit()
-            )
-        } else {
-            return AnyView(
-                Image("no_image")
-                    .resizable()
-                    .scaledToFit()
-            )
+            image
+                .resizable()
+                .scaledToFit()
+                .background(Color.green)
+                .frame(maxHeight: .infinity)
+                .overlay {
+                    VStack {
+                        MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
+                        Spacer()
+                        MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
+                    }
+                }
+        }
+        else {
+            Image("no_image")
+                .resizable()
+                .scaledToFit()
+                .background(Color.green)
+                .frame(maxHeight: .infinity)
+                .overlay {
+                    VStack {
+                        MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
+                        Spacer()
+                        MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
+                    }
+                }
         }
     }
     
     private var bottomView: some View {
         HStack {
             if let selectedImage = selectedImage {
+                let editedUIImage = centerView.snapshot()
+                let editedImage = Image(uiImage: editedUIImage)
                 ShareLink(
-                    item: selectedImage,
-                    preview: SharePreview("Beautiful Image", image: selectedImage)) {
+                    item: editedImage,
+                    preview: SharePreview("Beautiful Image", image: editedImage)) {
                         Image("share")
                     }
                     .frame(maxWidth: .infinity)
@@ -97,4 +106,21 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+extension View {
+    func snapshot() -> UIImage {
+        let controller = UIHostingController(rootView: self)
+        let view = controller.view
+        
+        let targetSize = controller.view.intrinsicContentSize
+        view?.bounds = CGRect(origin: .zero, size: targetSize)
+        view?.backgroundColor = .clear
+        
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        
+        return renderer.image { _ in
+            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+        }
+    }
 }

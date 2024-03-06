@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96822E8C2B98709C003D361F /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96822E8B2B98709C003D361F /* View+.swift */; };
 		96C558832B918165008D14DF /* Udacity_Meme1_0App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C558822B918165008D14DF /* Udacity_Meme1_0App.swift */; };
 		96C558852B918165008D14DF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C558842B918165008D14DF /* ContentView.swift */; };
 		96C558872B918167008D14DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96C558862B918167008D14DF /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		96822E8B2B98709C003D361F /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		96C5587F2B918165008D14DF /* Udacity_Meme1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Udacity_Meme1.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96C558822B918165008D14DF /* Udacity_Meme1_0App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Udacity_Meme1_0App.swift; sourceTree = "<group>"; };
 		96C558842B918165008D14DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 				96C558822B918165008D14DF /* Udacity_Meme1_0App.swift */,
 				96C558842B918165008D14DF /* ContentView.swift */,
 				96C558902B91AE1A008D14DF /* MemeTextField.swift */,
+				96822E8B2B98709C003D361F /* View+.swift */,
 				96C558922B91B70F008D14DF /* ListFontView.swift */,
 				96C558862B918167008D14DF /* Assets.xcassets */,
 				96C558882B918167008D14DF /* Preview Content */,
@@ -146,6 +149,7 @@
 				96C558852B918165008D14DF /* ContentView.swift in Sources */,
 				96C558832B918165008D14DF /* Udacity_Meme1_0App.swift in Sources */,
 				96C558912B91AE1A008D14DF /* MemeTextField.swift in Sources */,
+				96822E8C2B98709C003D361F /* View+.swift in Sources */,
 				96C558932B91B70F008D14DF /* ListFontView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +287,8 @@
 				DEVELOPMENT_TEAM = GCAT449K7M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Used to take photos for making memes";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Used to show user's saved memes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -313,6 +319,8 @@
 				DEVELOPMENT_TEAM = GCAT449K7M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Used to take photos for making memes";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Used to show user's saved memes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
