@@ -16,11 +16,11 @@ struct ContentView: View {
     @State private var bottomText = ""
     @State private var selectedFontName: String?
     @State private var isOpenAlbum = false
-    
+    @State private var renderImage: Image?
+
     var body: some View {
         VStack {
             centerView
-              
             bottomView
                 .frame(maxWidth: .infinity, maxHeight: 60)
                 .background {
@@ -42,50 +42,46 @@ struct ContentView: View {
         .onChange(of: selectedFontName) {
             isOpenAlbum.toggle()
         }
+        .onChange(of: selectedImage) {
+            let renderer = ImageRenderer(content: centerView)
+            if let image = renderer.cgImage {
+                renderImage = Image(decorative: image, scale: 1.0)
+            }
+        }
         .sheet(isPresented: $isOpenAlbum) {
             ListFontView(selectedFontName: $selectedFontName)
         }
     }
     
-    private var centerView: some View {
+    private var selectImage: Image {
         if let image = selectedImage {
             image
-                .resizable()
-                .scaledToFit()
-                .background(Color.green)
-                .frame(maxHeight: .infinity)
-                .overlay {
-                    VStack {
-                        MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
-                        Spacer()
-                        MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
-                    }
-                }
-        }
-        else {
+        } else {
             Image("no_image")
-                .resizable()
-                .scaledToFit()
-                .background(Color.green)
-                .frame(maxHeight: .infinity)
-                .overlay {
-                    VStack {
-                        MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
-                        Spacer()
-                        MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
-                    }
-                }
         }
+    }
+    
+    private var centerView: some View {
+        selectImage
+            .resizable()
+            .scaledToFit()
+            .background(Color.green)
+            .frame(maxHeight: .infinity)
+            .overlay {
+                VStack {
+                    MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
+                    Spacer()
+                    MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
+                }
+            }
     }
     
     private var bottomView: some View {
         HStack {
-            if let selectedImage = selectedImage {
-                let editedUIImage = centerView.snapshot()
-                let editedImage = Image(uiImage: editedUIImage)
+            if let renderImage = renderImage {
                 ShareLink(
-                    item: editedImage,
-                    preview: SharePreview("Beautiful Image", image: editedImage)) {
+                    item: renderImage,
+                    preview: SharePreview("Beautiful Image", image: renderImage)) {
                         Image("share")
                     }
                     .frame(maxWidth: .infinity)
@@ -106,21 +102,4 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-}
-
-extension View {
-    func snapshot() -> UIImage {
-        let controller = UIHostingController(rootView: self)
-        let view = controller.view
-        
-        let targetSize = controller.view.intrinsicContentSize
-        view?.bounds = CGRect(origin: .zero, size: targetSize)
-        view?.backgroundColor = .clear
-        
-        let renderer = UIGraphicsImageRenderer(size: targetSize)
-        
-        return renderer.image { _ in
-            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
-        }
-    }
 }
