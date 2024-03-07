@@ -16,19 +16,11 @@ struct ContentView: View {
     @State private var bottomText = ""
     @State private var selectedFontName: String?
     @State private var isOpenAlbum = false
-    
+    @State private var renderImage: Image?
+
     var body: some View {
         VStack {
             centerView
-                .background(Color.green)
-                .frame(maxHeight: .infinity)
-                .overlay {
-                    VStack {
-                        MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
-                        Spacer()
-                        MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
-                    }
-                }
             bottomView
                 .frame(maxWidth: .infinity, maxHeight: 60)
                 .background {
@@ -50,33 +42,46 @@ struct ContentView: View {
         .onChange(of: selectedFontName) {
             isOpenAlbum.toggle()
         }
+        .onChange(of: selectedImage) {
+            let renderer = ImageRenderer(content: centerView)
+            if let image = renderer.cgImage {
+                renderImage = Image(decorative: image, scale: 1.0)
+            }
+        }
         .sheet(isPresented: $isOpenAlbum) {
             ListFontView(selectedFontName: $selectedFontName)
         }
     }
     
-    private var centerView: some View {
+    private var selectImage: Image {
         if let image = selectedImage {
-            return AnyView(
-                image
-                    .resizable()
-                    .scaledToFit()
-            )
+            image
         } else {
-            return AnyView(
-                Image("no_image")
-                    .resizable()
-                    .scaledToFit()
-            )
+            Image("no_image")
         }
+    }
+    
+    private var centerView: some View {
+        selectImage
+            .resizable()
+            .scaledToFit()
+            .background(Color.green)
+            .frame(maxHeight: .infinity)
+            .overlay {
+                VStack {
+                    MemeTextField(text: $topText, placeHolder: "Top", fontName: selectedFontName)
+                    Spacer()
+                    MemeTextField(text: $bottomText, placeHolder: "Bottom", fontName: selectedFontName)
+                }
+            }
     }
     
     private var bottomView: some View {
         HStack {
-            if let selectedImage = selectedImage {
+            if let renderImage = renderImage {
                 ShareLink(
-                    item: selectedImage,
-                    preview: SharePreview("Beautiful Image", image: selectedImage)) {
+                    item: renderImage,
+                    preview: SharePreview("Beautiful Image", image: renderImage)) {
                         Image("share")
                     }
                     .frame(maxWidth: .infinity)
